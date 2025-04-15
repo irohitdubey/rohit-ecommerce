@@ -5,21 +5,24 @@ import {
   decrementQuantity,
   removeFromCart,
 } from "../store/cartSlice";
+import { saveForLater, removeFromSaved } from "../store/savedSlice";
 import "./Cart.css";
 
 function Cart() {
   const { items } = useSelector((state) => state.cart);
+  const savedItems = useSelector((state) => state.saved.items);
   const dispatch = useDispatch();
 
-  // Calculate totals
   const totalPrice = items.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-  const discount = totalPrice * 0.4; // Example 40% discount
-  const platformFee = 3; // Static fee
-  const deliveryCharges = 0; // Free delivery
-  const finalTotal = totalPrice - discount + platformFee + deliveryCharges;
+  const discount = totalPrice * 0.4;
+  const platformFee = 3;
+  const deliveryCharges = 0;
+  const tax = totalPrice * 0.05;
+  const finalTotal =
+    totalPrice - discount + platformFee + deliveryCharges + tax;
 
   const handleIncrement = (id) => {
     dispatch(incrementQuantity(id));
@@ -33,14 +36,24 @@ function Cart() {
     dispatch(removeFromCart(id));
   };
 
-  if (items.length === 0)
+  const handleSaveForLater = (item) => {
+    dispatch(saveForLater(item));
+    dispatch(removeFromCart(item.id));
+  };
+
+  const handleMoveToCart = (item) => {
+    dispatch(removeFromSaved(item.id));
+    dispatch({ type: "cart/addToCart", payload: item });
+  };
+
+  if (items.length === 0 && savedItems.length === 0) {
     return <p>Your cart is empty. Add items to proceed.</p>;
+  }
 
   return (
     <div className="cart">
       <h1>Your Cart</h1>
       <div className="cart-container">
-        {/* Left Section: Cart Items */}
         <div className="cart-items">
           <h2>From Saved Addresses</h2>
           {items.map((item) => (
@@ -65,7 +78,12 @@ function Cart() {
                   <button onClick={() => handleIncrement(item.id)}>+</button>
                 </div>
                 <div className="cart-actions">
-                  <button className="save-for-later">SAVE FOR LATER</button>
+                  <button
+                    className="save-for-later"
+                    onClick={() => handleSaveForLater(item)}
+                  >
+                    SAVE FOR LATER
+                  </button>
                   <button
                     className="remove"
                     onClick={() => handleRemove(item.id)}
@@ -80,9 +98,35 @@ function Cart() {
               </p>
             </div>
           ))}
+          {savedItems.length > 0 && (
+            <div className="saved-items">
+              <h2>Saved for Later</h2>
+              {savedItems.map((item) => (
+                <div key={item.id} className="cart-item">
+                  <img src={item.image} alt={item.name} />
+                  <div className="cart-item-details">
+                    <h3>{item.name}</h3>
+                    <p>₹{item.price.toFixed(2)}</p>
+                    <div className="cart-actions">
+                      <button
+                        className="move-to-cart"
+                        onClick={() => handleMoveToCart(item)}
+                      >
+                        MOVE TO CART
+                      </button>
+                      <button
+                        className="remove"
+                        onClick={() => dispatch(removeFromSaved(item.id))}
+                      >
+                        REMOVE
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-
-        {/* Right Section: Price Summary */}
         <div className="price-summary">
           <h2>PRICE DETAILS</h2>
           <div className="price-details">
@@ -101,6 +145,9 @@ function Cart() {
             </p>
             <p>
               Delivery Charges <span>₹{deliveryCharges} Free</span>
+            </p>
+            <p>
+              Tax (5%) <span>₹{tax.toFixed(2)}</span>
             </p>
             <hr />
             <p className="total-amount">

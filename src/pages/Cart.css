@@ -180,3 +180,22 @@
     margin-top: 10px;
   }
 }
+
+/* src/pages/Cart.css */
+.saved-items {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
+}
+
+.move-to-cart {
+  background: none;
+  border: none;
+  color: #28a745;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.move-to-cart:hover {
+  color: #1f7a38;
+}
