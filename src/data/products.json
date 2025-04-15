@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "Wireless Headphones",
+    "price": 59.99,
+    "image": "/assets/images/headphones.jpg",
+    "description": "High-quality wireless headphones with noise cancellation."
+  },
+  {
+    "id": 2,
+    "name": "Smartphone Case",
+    "price": 19.99,
+    "image": "/assets/images/case.jpg",
+    "description": "Durable case for your smartphone."
+  },
+  {
+    "id": 3,
+    "name": "Bluetooth Speaker",
+    "price": 39.99,
+    "image": "/assets/images/speaker.jpg",
+    "description": "Portable speaker with excellent sound quality."
+  },
+  {
+    "id": 4,
+    "name": "USB-C Cable",
+    "price": 9.99,
+    "image": "/assets/images/cable.jpg",
+    "description": "Fast-charging USB-C cable."
+  }
+]

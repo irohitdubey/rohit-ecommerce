@@ -1,0 +1,43 @@
+/* src/pages/Checkout.css */
+.checkout {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.checkout h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.checkout ul {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.checkout li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.checkout form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.checkout label {
+  font-weight: bold;
+}
+
+.checkout input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+  .checkout h1 {
+    font-size: 1.5rem;
+  }
+}

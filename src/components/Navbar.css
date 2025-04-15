@@ -1,0 +1,77 @@
+/* src/components/Navbar.css */
+.navbar {
+  background-color: #007bff;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-left a {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navbar-right {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.navbar-right a {
+  color: white;
+  font-weight: bold;
+}
+
+.navbar-right a:hover {
+  color: #e0e0e0;
+}
+
+.navbar-right .cart-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-right .cart-link i {
+  font-size: 1.2rem;
+}
+
+.navbar-right .cart-count {
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  background-color: #ff0000;
+  color: white;
+  font-size: 0.8rem;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-right button {
+  background-color: #fff;
+  color: #007bff;
+  padding: 5px 15px;
+  border-radius: 5px;
+}
+
+.navbar-right button:hover {
+  background-color: #e0e0e0;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .navbar-right {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
